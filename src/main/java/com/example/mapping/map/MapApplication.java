@@ -4,6 +4,7 @@ import com.example.mapping.map.dao.AppDAO;
 import com.example.mapping.map.entity.Course;
 import com.example.mapping.map.entity.Instructor;
 import com.example.mapping.map.entity.InstructorDetail;
+import com.example.mapping.map.entity.Review;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -32,8 +33,36 @@ public class MapApplication {
 //			findInstructorWithCoursesJoinFetch(appDAO);
 //			updateInsturctor(appDAO);
 //			updateCourse(appDAO);
-			deleteCourse(appDAO);
+//			deleteCourse(appDAO);
+
+//			createCourseAndReviews(appDAO);
+//			retrieveCourseAndReviews(appDAO);
+//			deleteCourseAndReviews(appDAO);
 		};
+	}
+
+	private void deleteCourseAndReviews(AppDAO appDAO) {
+		int id = 10;
+		appDAO.deleteCourseById(id);
+	}
+
+	private void retrieveCourseAndReviews(AppDAO appDAO) {
+		int id = 10;
+		Course course = appDAO.findCourseAndReviewsByCourseId(id);
+
+		System.out.println(course);
+		System.out.println(course.getReviews());
+	}
+
+	private void createCourseAndReviews(AppDAO appDAO) {
+		Course course = new Course("some course");
+
+		course.addReview(new Review("I like the course!"));
+		course.addReview(new Review("Cool! I like the course!"));
+		course.addReview(new Review("I don't like the course!"));
+
+		System.out.println(course.getReviews());
+		appDAO.save(course);
 	}
 
 	private void deleteCourse(AppDAO appDAO) {
