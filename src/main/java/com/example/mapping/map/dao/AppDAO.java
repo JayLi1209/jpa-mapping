@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.mapping.map.entity.Course;
 import com.example.mapping.map.entity.Instructor;
 import com.example.mapping.map.entity.InstructorDetail;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.mapping.map.entity.Student;
 
 public interface AppDAO {
     void save(Instructor instructor);
@@ -33,4 +33,12 @@ public interface AppDAO {
     void save(Course course);
 
     Course findCourseAndReviewsByCourseId(int id);
+
+    Course findCourseAndStudentsByCourseId(int id);
+
+    Student findStudentAndCoursesByStudentId(int id);
+
+    void update(Student student);
+
+    void deleteStudentById(int id);
 }

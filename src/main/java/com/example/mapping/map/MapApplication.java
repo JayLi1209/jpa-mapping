@@ -1,10 +1,7 @@
 package com.example.mapping.map;
 
 import com.example.mapping.map.dao.AppDAO;
-import com.example.mapping.map.entity.Course;
-import com.example.mapping.map.entity.Instructor;
-import com.example.mapping.map.entity.InstructorDetail;
-import com.example.mapping.map.entity.Review;
+import com.example.mapping.map.entity.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,7 +35,61 @@ public class MapApplication {
 //			createCourseAndReviews(appDAO);
 //			retrieveCourseAndReviews(appDAO);
 //			deleteCourseAndReviews(appDAO);
+
+//			createCourseAndStudents(appDAO);
+//			findCourseAndStudents(appDAO);
+//			findStudentAndCourses(appDAO);
+//			addMoreCoursesForStudent(appDAO);
+//			deleteCourse(appDAO);
+			deleteStudent(appDAO);
 		};
+	}
+
+	private void deleteStudent(AppDAO appDAO) {
+		int id = 1;
+		appDAO.deleteStudentById(id);
+		System.out.println("Student of id " + id + " is deleted.");
+	}
+
+	private void addMoreCoursesForStudent(AppDAO appDAO) {
+		int id = 2;
+		Student student = appDAO.findStudentAndCoursesByStudentId(id);
+
+		Course course1 = new Course("How to eat peanuts?");
+		Course course2 = new Course("Game Dev");
+
+		student.addCourse(course1);
+		student.addCourse(course2);
+
+		System.out.println("Student have course" + student.getCourses());
+	}
+
+	private void findStudentAndCourses(AppDAO appDAO) {
+		int id = 2;
+		Student student = appDAO.findStudentAndCoursesByStudentId(id);
+		System.out.println("Student: " + student);
+		System.out.println("Courses: " + student.getCourses());
+	}
+
+	private void findCourseAndStudents(AppDAO appDAO) {
+		int id = 10;
+		Course course = appDAO.findCourseAndStudentsByCourseId(id);
+		System.out.println("Course: " + course);
+		System.out.println(course.getStudents());
+	}
+
+	private void createCourseAndStudents(AppDAO appDAO) {
+		Course course = new Course("Get girlfriend course");
+		Student jay = new Student("Jay", "Li", "jay@li");
+		Student li = new Student("Li", "Jay", "li@jay");
+
+		course.addStudent(jay);
+		course.addStudent(li);
+
+		System.out.println("Saving... " + course);
+		System.out.println("Students: " + course.getStudents());
+
+		appDAO.save(course);
 	}
 
 	private void deleteCourseAndReviews(AppDAO appDAO) {
